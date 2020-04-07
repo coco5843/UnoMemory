@@ -13,13 +13,59 @@ p{
   text-align: center;
   font-size: 25px;
 }
-.uno{
+#uno{
   float: left;
   text-align: left;
-  margin-left: 850px;
+  margin-left: 810px;
 }
-.battle{
+#battle{
   float: right;
   text-align: right;
-  margin-right: 850px;
+  margin-right: 810px;
+}
+img{
+  margin-top: 10px;
+}
+.selectMode{
+  padding-top: 200px;
+}
+#container{
+  display: flex;
+  justify-content: center;
+}
+
+button{
+  margin-right: 10px;
+  border: none;
+  border-radius:50px;
+  text-decoration : none;
+  width:140px;
+  height:30px;
+}
+button:hover{
+  background-color: #888888;
+}
+button:active{
+  background-color: #323855;
+}
+.selectable .ui-selecting {
+  border: 2px dashed #ff0000;
+}
+
+.selectable .ui-selected {
+  border: 2px solid #ff0000;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
+  box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
+}
+
+.selectable img {
+  margin: 5px;
+  padding: 5px;
+  border: 2px solid #ffffff;
+}
+
+.selected-items {
+  border: 2px solid #ff0000;
+  line-height: 32px;
 }

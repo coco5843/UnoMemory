@@ -6,37 +6,46 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="manifest" href="site.webmanifest">
-
   <link rel="stylesheet" href="css/main.css">
-
+  <script src="js/vendor/jquery-3.4.1.min.js"></script>
+  <script src="jquery-ui/jquery-ui.js"></script>
 </head>
 
 <body class="all">
-  <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
+
+<script src="js/menu.js"></script>
 
   <!-- Add your site or application content here -->
   <h1>Jeu de memory</h1>
-  <script src="js/vendor/modernizr-3.8.0.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
 
-  <p> voici le jeu de memory</p>
+
+
+  <p> Choississez le dos de carte que vous voulez </p>
+
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
     window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
     ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
   </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
-
-  <img class="uno"src="img/uno/verso.png" height="136" width="82"/>
-  <img class="battle"src="img/battle/2_of_clubs.png" height="136" width="82"/></body>
 
 
+  <div class="selectable">
+    <img id="uno" class="ui-widget-content" src="img/uno/verso.png" height="136" width="82"/>
+    <img id="battle" class="ui-widget-content" src="img/battle/back.png" height="136" width="82"/>
+  </div>
 
+
+
+
+
+
+  <p class="selectMode"> Choissisez le nombre de ligne/colonne que vous voulez</p>
+  <div id="container">
+  <button class="2">2/3</button>
+  <button class="3/6">3/6</button>
+  <button class="3/12">3/12</button>
+  <button class="hardMode">Mode difficile</button>
+  </div>
+</body>
 </html>
