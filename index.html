@@ -37,9 +37,6 @@
 
 
 
-
-
-
   <p class="selectMode"> Choissisez le nombre de ligne/colonne que vous voulez</p>
   <div id="container">
   <button class="2">2/3</button>
@@ -47,5 +44,28 @@
   <button class="3/12">3/12</button>
   <button class="hardMode">Mode difficile</button>
   </div>
+
+<p class="selected-items">Vous avez selectionné: <span id="selected-item-list"></span></p>
+
+<select id="dynamic_select">
+  <option value="" selected>Pick a Website</option>
+  <option value="http://www.google.com">Google</option>
+  <option value="http://www.youtube.com">YouTube</option>
+  <option value="https://www.gurustop.net">GuruStop.NET</option>
+</select>
+
+<script>
+  $(function(){
+    // bind change event to select
+    $('#dynamic_select').on('change', function () {
+      var url = $(this).val(); // get selected value
+      if (url) { // require a URL
+        window.location = url; // redirect
+      }
+      return false;
+    });
+  });
+</script>
+
 </body>
 </html>
