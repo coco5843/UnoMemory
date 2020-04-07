@@ -1,4 +1,25 @@
 body{
   background-color: rgba(135, 135, 135, 0.54);
 }
-
+h1{
+  color: red;
+  display: block;
+  text-align: center;
+  font-size: 50px;
+}
+p{
+  color: black;
+  display: block;
+  text-align: center;
+  font-size: 25px;
+}
+.uno{
+  float: left;
+  text-align: left;
+  margin-left: 850px;
+}
+.battle{
+  float: right;
+  text-align: right;
+  margin-right: 850px;
+}
