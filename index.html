@@ -21,44 +21,30 @@
 
 
 
-  <p> Choississez le dos de carte que vous voulez </p>
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
+  <p> Choississez le dos de carte que vous voulez : </p>
 
 
   <div class="selectable">
-    <img id="uno" class="ui-widget-content" src="img/uno/verso.png" height="136" width="82"/>
-    <img id="battle" class="ui-widget-content" src="img/battle/back.png" height="136" width="82"/>
+    <img id="0" class="ui-widget-content" src="img/uno/back.png" height="295" width="178"/>
+    <img id="1" class="ui-widget-content" src="img/battle/back.png" height="295" width="178"/>
   </div>
 
-
-
-  <p class="selectMode"> Choissisez le nombre de ligne/colonne que vous voulez</p>
-  <div id="container">
-  <button class="2">2/3</button>
-  <button class="3/6">3/6</button>
-  <button class="3/12">3/12</button>
-  <button class="hardMode">Mode difficile</button>
+<div id="main">
+  <p class="selectMode"> Choisissez le nombre de ligne/colonne que vous voulez :</p>
+  <div class ="container">
+  <button class="difficulty" value="2/3">2/3</button>
+  <button class="difficulty" value="3/6">3/6</button>
+  <button class="difficulty" value="3/12">3/12</button>
+  <button id="hardMode" class="difficulty" value="hard">Mode difficile</button>
   </div>
+</div>
 
-<p class="selected-items">Vous avez selectionné: <span id="selected-item-list"></span></p>
-
-<select id="dynamic_select">
-  <option value="" selected>Pick a Website</option>
-  <option value="http://www.google.com">Google</option>
-  <option value="http://www.youtube.com">YouTube</option>
-  <option value="https://www.gurustop.net">GuruStop.NET</option>
-</select>
 
 <script>
   $(function(){
     // bind change event to select
     $('#dynamic_select').on('change', function () {
-      var url = $(this).val(); // get selected value
+      var url = $(this).val();
       if (url) { // require a URL
         window.location = url; // redirect
       }

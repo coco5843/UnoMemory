@@ -1,58 +1,9 @@
 body{
-  background-color: rgba(135, 135, 135, 0.54);
-}
-h1{
-  color: red;
-  display: block;
-  text-align: center;
-  font-size: 50px;
-}
-p{
-  color: black;
-  display: block;
-  text-align: center;
-  font-size: 25px;
-}
-#uno{
-  float: left;
-  text-align: left;
-
-}
-#battle{
-  float: right;
-  text-align: right;
-}
-img{
-  margin-top: 10px;
-}
-.selectMode{
-  padding-top: 200px;
-}
-#container{
-  display: flex;
-  justify-content: center;
-}
-
-button{
-  margin-right: 10px;
-  border: none;
-  border-radius:50px;
-  text-decoration : none;
-  width:140px;
-  height:30px;
-}
-button:hover{
-  background-color: #888888;
-}
-button:active{
-  background-color: #323855;
-}
-.selectable .ui-selecting {
-  border: 2px dashed #ff0000;
+  background-color: rgba(0, 0, 0, 0.67);
 }
 
 .selectable .ui-selected {
-  border: 2px solid #ff0000;
+  border: 2px solid #c;
   -webkit-box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
   -moz-box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
   box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
@@ -64,7 +15,64 @@ button:active{
   border: 2px solid #ffffff;
 }
 
-.selected-items {
-  border: 2px solid #ff0000;
-  line-height: 32px;
+#main{
+  background-color: black;
+  padding-bottom: 25px;
 }
+
+h1{
+  color: white;
+  display: block;
+  margin: 10px;
+  background-color: #000000;
+  text-align: center;
+  font-size: 70px;
+  font-family: Algerian, fantasy ;
+}
+p{
+  color: white;
+  display: block;
+  text-align: center;
+  font-size: 25px;
+  font-family: "Mosk Light 300", cursive;
+}
+.selectable{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+img{
+  margin-top: 10px;
+}
+.selectMode{
+  padding-top: 15px;
+}
+.container{
+   display: flex;
+   justify-content: center;
+}
+
+button{
+  margin-right: 10px;
+  border: none;
+  border-radius:50px;
+  text-decoration : none;
+  width:150px;
+  height:70px;
+  outline: none;
+  font-size: 25px;
+  font-family: "Poor Richard", fantasy;
+}
+button:hover{
+  background-color: #888888;
+  color: white;
+  box-shadow: black;
+}
+button:active{
+  background-color: #000000;
+  color: white;
+}
+.selectable .ui-selecting {
+  border: 2px dashed #ff0000;
+}
+
