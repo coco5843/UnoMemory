@@ -1,14 +1,16 @@
-
-$(function() {
+$(function () {
 
   const debug = true;
   let hardMode = false;
-
   //prevent player interaction when any animation is playing
   let animating = false;
 
+  //Denière carte qui a été selectionné
   let lastSelectedCardIndex = -1;
 
+  let attempts = 0;
+
+  const cardsFound = [];
 
   /**
    * //cards
@@ -26,50 +28,48 @@ $(function() {
 
   loadGameSettings();
 
-  $(".selectable").selectable({
-    selected: function() {
-      $(".selectable img").each(function(index) {
-        if ($(this).hasClass("ui-selected")) {
+  $(".card").click(function () {
+    if (animating) return;
 
-          //this id should be the same as the card pos
-          if(debug) {
-            console.log("id selected " + index);
-            console.log("last selected " + lastSelectedCardIndex);
-
-          }
-
-          //no last selected (first selection)
-          if (lastSelectedCardIndex <= -1)
-            lastSelectedCardIndex = index;
-          else {
-            if (lastSelectedCardIndex === index) {
-              //can't select card already selected
-              return;
-            }
-            lastSelectedCardIndex = index;
-          }
-
-          console.log("rotate");
+    const index = $(this).attr("id");
 
 
-          this.classList.add("flip");
-          setTimeout(() => {
-            this.classList.remove('flip');
-          }, 1500);
-
-          if(cards[index] === cards[lastSelectedCardIndex]) {
-                console.log("card pairing found" );
-          }
-
-
-
-
-
-          //play flip card animation
-
-        }
-      });
+    if (debug) {
+      console.log("id selected " + index);
+      console.log("last selected " + lastSelectedCardIndex);
     }
+
+    // first click
+    if (lastSelectedCardIndex <= -1) {
+      rotate(this, lastSelectedCardIndex);
+      lastSelectedCardIndex = index;
+    } else {
+
+      addAttempt();
+
+      //same card ?
+      if (index != lastSelectedCardIndex) {
+
+        //pairing
+        if (cards[index] === cards[lastSelectedCardIndex]) {
+          rotate(this, -1);
+          addFoundCard(index, lastSelectedCardIndex);
+          cardsFound.push(cards[index]);
+          if (cardsFound.length === (cards.length / 2)) {
+            win();
+          }
+
+          lastSelectedCardIndex = -1;
+        } else {
+          //sinon
+          rotate(this, -1);
+          rotate(this, lastSelectedCardIndex);
+          lastSelectedCardIndex = -1;
+          return;
+        }
+      }
+    }
+
   });
 
 
@@ -78,17 +78,11 @@ $(function() {
    */
   function loadGameSettings() {
 
-
     //get options selected from @see menu.js
     const textureID = localStorage.getItem("texture");
     const difficultyValue = localStorage.getItem("difficulty");
-
+    hardMode = localStorage.getItem("hardmode");
     let data = difficultyValue.split("/");
-    if (difficultyValue === "hard") {
-      //if hard mode, set maximum lines and amount
-      data = [3, 12];
-      hardMode = true;
-    }
 
     // lignes
     const line = data[0];
@@ -102,10 +96,9 @@ $(function() {
 
 
     texturesPath = generateTexture(textureID, singleCardAmount);
-    if(debug) {
+    if (debug) {
       console.log("selected textures: " + texturesPath);
     }
-
 
 
     // positions (index)
@@ -125,7 +118,7 @@ $(function() {
     //  0 | 1 | 2 |
     //  2 | 1 | 0 |
     placeCardsToRandomPos(line, amountPerLine);
-    if(debug) {
+    if (debug) {
       console.log("cards randomized " + cards);
     }
 
@@ -139,16 +132,16 @@ $(function() {
   }
 
   function placeCardsToRandomPos() {
-      // pickup random cards
-      for(let time = 0 ; time < 2; time++) {
+    // pickup random cards
+    for (let time = 0; time < 2; time++) {
 
 
-        for (let i = 0; i < (cardsPositionIndex.length / 2); i++) {
-          cards.push(i);
-        }
+      for (let i = 0; i < (cardsPositionIndex.length / 2); i++) {
+        cards.push(i);
       }
-      //then randomize the list cards
-      shuffle(cards);
+    }
+    //then randomize the list cards
+    shuffle(cards);
 
   }
 
@@ -178,9 +171,9 @@ $(function() {
     let index = 0;
     for (let l = 0; l < line; l++) {
       //for each line, we create a div line
-        const divLine = document.createElement("div");
-        divLine.className = "selectable line";
-     // divLine.className = "line";
+      const divLine = document.createElement("div");
+      divLine.className = "line";
+      // divLine.className = "line";
 
       divContent.appendChild(divLine);
 
@@ -210,30 +203,86 @@ $(function() {
 
       }
 
-
-
-
       const breakDiv = document.createElement("div");
       breakDiv.className = "break";
       divContent.appendChild(breakDiv);
-
     }
 
 
+  }
+
+
+  function rotate(element, lastSelected) {
+    if (lastSelected > -1) {
+      animating = true;
+      lastElement = document.getElementById(lastSelectedCardIndex);
+      setTimeout(() => {
+        lastElement.classList.remove('flip');
+        element.classList.remove('flip');
+      }, 1500);
+
+      //wait just little bit more before allow clicking
+      setTimeout(() => {
+        animating = false;
+      }, 2500);
+    } else {
+      element.classList.add("flip");
+    }
 
 
   }
 
 
-  function rotate() {
+  function addFoundCard(posCard, posLastCard) {
 
+    let elementClone = null;
+    $(".realCard").each(function () {
+      const pos = $(this).attr('id');
+      if (posCard == pos) {
+        elementClone = this.cloneNode(true);
+        this.style.visibility = 'hidden';
+      } else if (posLastCard == pos) {
+        this.style.visibility = 'hidden';
+      }
+    });
+
+    if (elementClone === null) {
+      return;
+    }
+
+
+    elementClone.style.width = "64px";
+    elementClone.style.height = "107px";
+    //found-card
+    foundCards = document.getElementById("foundCards");
+    foundCards.appendChild(elementClone);
   }
 
 
+  function addAttempt() {
+    attempts++;
+    const element = $("#attempt");
+    element.text("Tentatives: " + attempts);
+  }
 
 
   function win() {
     startAnimation();
+
+
+  }
+
+  function playAgain() {
+
+
+
+    const button = document.createElement("button");
+    img.id = "pla";
+    img.className = "card ui-widget-content";
+    img.src = backs[textureID];
+    divLine.appendChild(img);
+
+
   }
 
 });
