@@ -68,10 +68,10 @@ $(function () {
         } else {
           //wrong card
           if(hardMode) {
-            //wait just before end animation rotation
+            //wait for rotation animation
             setTimeout(() => {
               shuffleHardMode()
-            }, 2000);
+            }, 1500);
           }
 
 
@@ -279,14 +279,11 @@ $(function () {
       animating = true;
       lastElement = document.getElementById(lastSelectedCardIndex);
       setTimeout(() => {
+        animating = false;
         lastElement.classList.remove('flip');
         element.classList.remove('flip');
       }, 1500);
 
-      //wait just little bit more before allow clicking
-      setTimeout(() => {
-        animating = false;
-      }, 2500);
     } else {
       element.classList.add("flip");
     }
