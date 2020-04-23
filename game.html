@@ -22,8 +22,7 @@
 <script src="jquery-ui/jquery-ui.js"></script>
 
 
-
-<h1>Jeu de memory test</h1>
+<h1 id="head">Jeu de memory</h1>
 
 
 <div class="chrono">
@@ -34,14 +33,24 @@
 
 <div id="game">
 
-<div id="scoreboard"><b class="scoreText">Score</b></div>
+  <div id="scoreboard">
 
-<div id="content">
-</div>
+    <div id="scores">
+      <b class="scoreText">Score</b>
+      <div id="attempt">Tentative: 0</div>
+    </div>
+  </div>
 
+  <div id="content">
+  </div>
 
-<div id="found-card"> <b class="spanCard">Carte trouvées</b> </div>
+  <div id="found-card">
 
+    <b class="spanCard">Carte trouvées</b>
+
+    <div id="foundCards"></div>
+
+  </div>
 
 </div>
 

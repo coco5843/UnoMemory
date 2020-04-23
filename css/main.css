@@ -14,7 +14,6 @@ body{
   padding: 5px;
   border: 2px solid #ffffff;
 }
-
 #main{
   background-color: black;
   padding-bottom: 25px;
@@ -29,6 +28,7 @@ h1{
   font-size: 70px;
   font-family: Algerian, fantasy ;
 }
+
 p{
   color: white;
   display: block;
@@ -52,7 +52,8 @@ img{
    justify-content: center;
 }
 
-button{
+
+.difficulty, button{
   margin-right: 10px;
   border: none;
   border-radius:50px;
@@ -63,12 +64,27 @@ button{
   font-size: 25px;
   font-family: "Poor Richard", fantasy;
 }
-button:hover{
+
+#toggle:hover{
+  background-color: #6e0400;
+  color: white;
+  box-shadow: black;
+}
+
+.toggled {
+  background-color: #fa221a;
+  color: white;
+  box-shadow: black;
+}
+
+
+
+.difficulty:hover{
   background-color: #888888;
   color: white;
   box-shadow: black;
 }
-button:active{
+.difficulty:active{
   background-color: #000000;
   color: white;
 }

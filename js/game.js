@@ -1,15 +1,14 @@
 $(function () {
 
   const debug = true;
+
+  let started = false;
   let hardMode = false;
   //prevent player interaction when any animation is playing
   let animating = false;
 
-  //Denière carte qui a été selectionné
   let lastSelectedCardIndex = -1;
-
   let attempts = 0;
-
   const cardsFound = [];
 
   /**
@@ -24,6 +23,8 @@ $(function () {
   const cards = [];
   const cardsPositionIndex = [];
   let texturesPath = [];
+  const bannedPositions = [];
+
 
 
   loadGameSettings();
@@ -31,8 +32,12 @@ $(function () {
   $(".card").click(function () {
     if (animating) return;
 
-    const index = $(this).attr("id");
+    if(!started) {
+      chronoStart();
+      started = true;
+    }
 
+    const index = $(this).attr("id");
 
     if (debug) {
       console.log("id selected " + index);
@@ -61,7 +66,15 @@ $(function () {
 
           lastSelectedCardIndex = -1;
         } else {
-          //sinon
+          //wrong card
+          if(hardMode) {
+            //wait just before end animation rotation
+            setTimeout(() => {
+              shuffleHardMode()
+            }, 2000);
+          }
+
+
           rotate(this, -1);
           rotate(this, lastSelectedCardIndex);
           lastSelectedCardIndex = -1;
@@ -71,6 +84,45 @@ $(function () {
     }
 
   });
+
+  function shuffleHardMode() {
+
+    //bannedPositions 0 ,1
+    //cards 0 , 0 , 1, 1, 2 , 2
+    //found cards 0
+    const cardsLeft = [];
+    const allowedPositions = [];
+    for(let pos in cardsPositionIndex) {
+      if(!bannedPositions.includes(pos)) {
+        allowedPositions.push(pos);
+        cardsLeft.push(cards[pos]);
+      }
+    }
+
+
+    let index = 0;
+    while(cardsLeft.length != 0) {
+      const randomCard = Math.floor(Math.random() * cardsLeft.length)
+      const item = cardsLeft[randomCard];
+      const pos = allowedPositions[index]
+      cards[pos] = item;
+      cardsLeft.splice(randomCard,1);
+      index++;
+    }
+
+    if(debug) {
+      console.log("cards " + cards);
+      console.log("allowed poses " + allowedPositions);
+    }
+
+    //refresh textures
+    //get all realCards element and update texture
+   $('.realLine').children('.realCard').each(function() {
+      const cardID = cards[this.id];
+      const texture = texturesPath[cardID];
+      this.src = texture;
+    });
+  }
 
 
   /**
@@ -84,11 +136,11 @@ $(function () {
     hardMode = localStorage.getItem("hardmode");
     let data = difficultyValue.split("/");
 
-    // lignes
+    // lines
     const line = data[0];
-    //nombre de colones
+    //column number
     const amountPerLine = data[1];
-    //nombre de cartes unique
+    //number of unique card
     const singleCardAmount = line * amountPerLine / 2;
 
     if (debug)
@@ -148,7 +200,7 @@ $(function () {
 
   /**
    * Generate texture without duplicated data
-   * @param textureID (0 = uno, texture 1 = battle)
+   * @param textureID (0 = uno, 1 = battle)
    * @param number
    * @returns {[]}
    */
@@ -165,6 +217,12 @@ $(function () {
   }
 
 
+  /**
+   *
+   * @param textureID
+   * @param line
+   * @param column
+   */
   function generateGrid(textureID, line, column) {
     const divContent = document.getElementById("content");
 
@@ -173,7 +231,6 @@ $(function () {
       //for each line, we create a div line
       const divLine = document.createElement("div");
       divLine.className = "line";
-      // divLine.className = "line";
 
       divContent.appendChild(divLine);
 
@@ -212,6 +269,11 @@ $(function () {
   }
 
 
+  /**
+   *
+   * @param element
+   * @param lastSelected
+   */
   function rotate(element, lastSelected) {
     if (lastSelected > -1) {
       animating = true;
@@ -233,7 +295,16 @@ $(function () {
   }
 
 
+  /**
+   *
+   * @param posCard
+   * @param posLastCard
+   */
   function addFoundCard(posCard, posLastCard) {
+    if(hardMode) {
+      bannedPositions.push(posCard);
+      bannedPositions.push(posLastCard);
+    }
 
     let elementClone = null;
     $(".realCard").each(function () {
@@ -251,10 +322,11 @@ $(function () {
     }
 
 
-    elementClone.style.width = "64px";
-    elementClone.style.height = "107px";
+    /* elementClone.style.width = "64px";
+     elementClone.style.height = "107px";*/
     //found-card
     foundCards = document.getElementById("foundCards");
+    elementClone.className = "card-found";
     foundCards.appendChild(elementClone);
   }
 
@@ -267,23 +339,27 @@ $(function () {
 
 
   function win() {
+    chronoStop()
     startAnimation();
-
+    playAgain();
 
   }
 
   function playAgain() {
+    setTimeout(() => {
+      const button = document.createElement("button");
+      button.innerHTML = "Rejouer ? ";
+      button.id = "playAgain";
+      document.body.appendChild(button);
 
+      $("#playAgain").click(function () {
+        document.location.reload();
+      });
 
-
-    const button = document.createElement("button");
-    img.id = "pla";
-    img.className = "card ui-widget-content";
-    img.src = backs[textureID];
-    divLine.appendChild(img);
-
-
+    }, 1500);
   }
+
+
 
 });
 

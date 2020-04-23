@@ -10,11 +10,38 @@ canvas {
   position: absolute;
 }
 body{
-  z-index: 1;
+  z-index: 1
 }
-h1{
-  display: block;
+
+
+#playAgain  {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: white;
   text-align: center;
+  font-weight: bold;
+  background: black;
+  border-radius: 20px;
+  border: none;
+  font-size: 100px;
+}
+#playAgain:hover {
+  background: gray;
+}
+#playAgain:active {
+  background: white;
+  color: black;
+}
+
+
+
+
+#head{
+  display: flex;
+  justify-content: center;
   color: #ebebeb;
   font-size: 70px;
   font-family: Algerian, fantasy ;
@@ -44,84 +71,104 @@ span{
   color: white;
   font-size: 50px;
 }
+
 .line{
   display: flex;
   flex-direction: row;
   position:absolute;
 }
+
 .realLine{
-  position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
 }
+
+
 .break {
   flex-basis: 100%;
   width: 0px;
   height: 0px;
   overflow: hidden;
 }
-input{
-  border-radius: 20px;
-  margin-left: 8px;
-}
+
+
 .realCard{
   margin: 5px;
 }
+
 .card.flip{
   transform: rotateY(180deg);
   backface-visibility: hidden;
+  transition: all 1.4s;
 }
+
 .card:active{
   transition: all 0.2s;
 }
+
 .card{
-  width: 151px;
+  width: 154px;
   height: 250px;
-  margin: 4px;
+  margin: 3.5px;
   transform-style: preserve-3d;
-  transition: all 1.4s;
+
   z-index: 10;
 }
+
 img{
-  width: 149px;
+  width: 151px;
   height: 248px;
 }
 #game{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .spanCard{
+  display: inline-block;
   color: #ebebeb;
   font-size: 20px;
 }
-#found-card{
+
+#found-card {
   border: 5px solid;
   border-color: #888888;
-  padding-bottom: 500px;
-  border-radius: 5px;
-  padding-left: 50px;
-  padding-right: 50px;
-  margin-right: 250px;
-  margin-left: 100px;
+  padding-right: 1%;
+  padding-left: 1%;
+}
 
+#card-found{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 150px;
+  grid-gap: 50px 50px;
+}
+img.card-found{
+  width: 68px;
+  height: 113px;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 #scoreboard{
   border: 5px solid;
   border-color: #888888;
-  padding-bottom: 500px;
-  border-radius: 5px;
-  padding-left: 50px;
-  padding-right: 50px;
-  margin-left: 250px;
-  margin-right: 100px;
+  padding-right: 1%;
+  padding-left: 1%;
 }
+
 
 .scoreText{
   color: #ebebeb;
   font-size: 20px;
 }
+
+#attempt {
+  color: #b8b4b0;
+  font-size: 20px;
+}
+
 
 .selectable .ui-selecting {
   border: 2px dashed #ff0000;
@@ -134,16 +181,192 @@ img{
   box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
 
 }
-
-
-
-
-
-
 canvas {
   cursor: crosshair;
   display: block;
 }
+
+
+
+
+
+
+
+@media screen and (max-width:767px){
+  #head{
+    display: flex;
+    justify-content: center;
+    color: #ebebeb;
+    font-size: 30px;
+    font-family: Algerian, fantasy ;
+    border-bottom: 2px solid;
+    border-color: white;
+  }
+
+  h2{
+    color: #ffffff;
+    font-size: 5px;
+    font-family: "Mosk Light 300", serif;
+  }
+
+  span{
+    color: #ebebeb;
+    font-family: "Mosk Light 300",serif;
+  }
+
+  #playAgain  {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background: black;
+    border-radius: 2px;
+    border: none;
+    font-size: 30px;
+  }
+  #playAgain:hover {
+    background: gray;
+  }
+
+  #playAgain:active {
+    background: white;
+    color: black;
+  }
+
+  img.card-found{
+    width: 32px;
+    height: 53px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+
+
+  .chrono{
+    display: block;
+    text-align: center;
+    margin-right: 65px;
+  }
+
+  #chronotime{
+    margin-left: 10%;
+    color: white;
+    font-size: 20px;
+  }
+
+  #attempt {
+    color: #b8b4b0;
+    font-size: 10px;
+  }
+
+  .line{
+    display: flex;
+    flex-direction: row;
+    position:absolute;
+  }
+
+  .realLine{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+
+  .break {
+    flex-basis: 100%;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+  }
+
+  .realCard{
+    margin: 5px;
+  }
+
+  .card.flip{
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transition: all 1.4s;
+  }
+
+  .card:active{
+    transition: all 0.2s;
+  }
+
+  .card{
+    width: 41px;
+    height: 66px;
+    margin: 3px;
+    transform-style: preserve-3d;
+
+    z-index: 10;
+  }
+
+  img{
+    width: 37px;
+    height: 61px;
+  }
+
+  #game{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .spanCard{
+    display: inline-block;
+    color: #ebebeb;
+    font-size: 10px;
+  }
+
+  #found-card {
+    border: 2px solid;
+    border-color: #888888;
+    padding-right: 1%;
+    padding-left: 1%;
+  }
+
+  #foundCards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 100px;
+  }
+
+  #scoreboard{
+    border: 2px solid;
+    border-color: #888888;
+    padding-right: 1%;
+    padding-left: 1%;
+  }
+
+
+  .scoreText{
+    color: #ebebeb;
+    font-size: 10px;
+  }
+
+  .selectable .ui-selecting {
+    border: 2px dashed #ff0000;
+  }
+
+  .selectable .ui-selected {
+    border: 2px solid #c;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
+    box-shadow: 0px 0px 8px 0px rgba(255, 0, 0, 1);
+
+  }
+  canvas {
+    cursor: crosshair;
+    display: block;
+  }
+
+}
+
+
+
 
 
 
