@@ -67,7 +67,9 @@ $(function () {
           lastSelectedCardIndex = -1;
         } else {
           //wrong card
-          if(hardMode) {
+
+          if(hardMode === true) {
+
             //wait for rotation animation
             setTimeout(() => {
               shuffleHardMode()
@@ -133,7 +135,7 @@ $(function () {
     //get options selected from @see menu.js
     const textureID = localStorage.getItem("texture");
     const difficultyValue = localStorage.getItem("difficulty");
-    hardMode = localStorage.getItem("hardmode");
+    hardMode = localStorage.getItem("hardmode") === 'true';
     let data = difficultyValue.split("/");
 
     // lines
